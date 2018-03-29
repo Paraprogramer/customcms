@@ -7,7 +7,6 @@ class Posts extends CI_Model {
 
 	public function getposts()
 	{
-
 		$this->db->select('posts.idpost, posts.title, posts.slug, posts.content, posts.date_published, posts.post_status, users.iduser, users.name');
 		$this->db->from('posts');
 		$this->db->join('users', 'users.iduser = posts.iduser', 'inner');
@@ -46,6 +45,12 @@ class Posts extends CI_Model {
 		return $this->db->insert($table, $data);
 	}
 
+	public function updatepost($table,$data,$id)
+	{
+		$this->db->where('idpost', $id);
+		return $this->db->update($table, $data);
+	}
+
 	public function deletepost($table,$id)
 	{
 		$this->db->where('idpost', $id);
@@ -60,18 +65,9 @@ class Posts extends CI_Model {
 		$this->db->join('users', 'users.iduser = posts.iduser', 'inner');
 		$this->db->join('categories', 'categories.idcategory = categories_detail.idcategory', 'inner');
 		$this->db->where('categories.idcategory', $id);
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
-	public function countposts($id)
-	{
-		$this->db->select('*');
-		$this->db->from('posts');
-		$this->db->join('categories_detail', 'categories_detail.idpost = posts.idpost', 'inner');
-		$this->db->join('categories', 'categories.idcategory = categories_detail.idcategory', 'inner');
-		$this->db->where('categories.idcategory', $id);
-		return $this->db->get()->num_rows();
-	}
 
 
 	// category model
@@ -105,11 +101,36 @@ class Posts extends CI_Model {
 		return $this->db->delete($table);
 	}
 
+
+	// tags model
 	public function getalltags($table)
 	{
 		
-
+		$query = $this->db->get($table);
+		return $query->result();
 	}
 
+	public function savetag($table,$data)
+	{
+		return $this->db->insert($table, $data);
+	}
+
+	public function gettagbyid($table,$id)
+	{
+		$data = $this->db->get_where($table, array('idtag' => $id));
+		return $data->result_array();
+	}
+
+	public function updatetag($table,$data,$id)
+	{
+		$this->db->where('idtag', $id);
+		return $this->db->update($table, $data);
+	}
+
+	public function deletetag($table,$id)
+	{
+		$this->db->where('idtag', $id);
+		return $this->db->delete($table);
+	}
 	
 }

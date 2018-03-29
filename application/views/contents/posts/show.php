@@ -54,7 +54,7 @@
 
           	<div class="row">
           		<div class="col-sm-6">
-          			<a href="#" class="btn btn-success btn-block">Edit</a>
+          			<a href="<?php echo base_url('post/edit/'.$post['idpost']) ?>" class="btn btn-success btn-block">Edit</a>
           		</div>
           		<div class="col-sm-6">
           			<a onclick="return confirm('Apakah Anda Yakin?')" href="<?php echo base_url('post/delete/'.$post['idpost'])?>" class="btn btn-danger btn-block">Hapus</a>

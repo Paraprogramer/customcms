@@ -1,5 +1,6 @@
 <section class="content">
-  <form method="POST" action="<?php echo base_url('post/save') ?>">
+  <form method="POST" action="<?php echo base_url('post/update') ?>">
+    <input type="hidden" value="<?php echo $post['idpost'] ?>" name="id">
     <div class="row">
       <div class="col-md-9">
         <div class="box box-default">
@@ -18,7 +19,7 @@
           <div class="box-body pad">
               
             <div class="form-group">
-              <input type="text" name="title" id="" class="form-control" placeholder="Masukkan Judul">
+              <input type="text" name="title" id="" class="form-control" placeholder="Masukkan Judul" value="<?php echo $post['title'] ?>">
             </div>
             <div class="form-group">
             Permalink : <a href="<?php echo base_url('')?>"><u>http://localhost/customcms/<?php echo date('Y').'/'.date('m').'/'.date('d').'/contoh' ?></a></u> &nbsp;&nbsp;<button type="button" id="edit-slug" class="btn btn-default btn-sm">Edit</button>
@@ -28,7 +29,7 @@
               <button type="button" id="media" data-toggle="modal" data-target="#modal-media" class="btn btn-default"><i class="fa fa-camera"> Tambahkan Media</i></button>
             </div>
             <div class="form-group">
-              <textarea id="editor1" name="content">
+              <textarea id="editor1" name="content"><?php echo $post['content'] ?>
               </textarea> 
             </div>
           </div>
@@ -78,7 +79,7 @@
             <?php
             foreach ($categories as $data) { ?>
               <div class="form-group">
-                <input type="checkbox" name="category[]" value="<?php echo $data->idcategory ?>">&nbsp;&nbsp;<?php echo $data->category_name ?>
+                <input <?php foreach ($c as $cc) { echo $data->idcategory == $cc['idcategory'] ? 'checked' : ''; } ?> type="checkbox" name="category[]" value="<?php echo $data->idcategory ?>">&nbsp;&nbsp;<?php echo $data->category_name ?>
               </div>
            <?php } ?>
           </div>
@@ -99,10 +100,9 @@
             <div class="form-group">
               <select name="tags[]" class="form-control select2" multiple="multiple">
                 <?php foreach ($tags as $tag) { ?>
-                  <option value="<?php echo $tag->idtag ?>"><?php echo $tag->tag ?></option>
+                  <option <?php foreach ($t as $tt) { echo $tag->idtag == $tt['idtag'] ? 'selected' : ''; } ?> value="<?php echo $tag->idtag ?>"><?php echo $tag->tag ?></option>
                 <?php } ?>
               </select>
-            </div>
           </div>
           <!-- /.box-body -->
         </div>
@@ -200,8 +200,7 @@
   <!-- /.modal-dialog -->
 </div>
 
-<script type="text/javascript">
-  
+<script>
   // function clickMe(e) {
   //     var x = document.getElementById(e.id).src;
   //     document.getElementById("editor1").value = x;

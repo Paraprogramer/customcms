@@ -5,22 +5,22 @@
       <div class="box">
         <div class="box-header">
           <i class="fa fa-plus"></i>
-          <h3 class="box-title">Form Kategori</h3>
+          <h3 class="box-title">Form Tag</h3>
         </div>
         <div class="box-body chat" id="chat-box">
           <!-- chat item -->
           <div class="item">
-            <form role="form" action="<?php echo base_url(); ?>category/save" method="post">
+            <form role="form" action="<?php echo base_url(); ?>tag/save" method="post">
               <div class="form-group">
-                <label for="namalengkap">Nama</label>
-                <input type="text" class="form-control" value="<?php echo $category_name; ?>" id="" name="category_name"  required>
+                <label for="namalengkap">Tag</label>
+                <input type="text" class="form-control" value="<?php echo $tag; ?>" id="" name="tag"  required>
               </div>
-              <input type="hidden" name="idcategory" value="<?php echo $idcategory; ?>" />
+              <input type="hidden" name="idtag" value="<?php echo $idtag; ?>" />
               <input type="hidden" name="status" value="<?php echo $status; ?>" />
               <button type="submit" class="btn btn-primary btn-block btn-flat">Simpan</button>
               <?php if($status == "baru"){ echo '<button type="reset" class="btn btn-warning btn-block btn-flat">Batal</button>';?>
               <?php } else { ?> 
-              <a href="<?php echo base_url(); ?>category" class="btn btn-warning btn-block btn-flat">Kembali</a>
+              <a href="<?php echo base_url(); ?>tag" class="btn btn-warning btn-block btn-flat">Kembali</a>
               <?php } ?>
             </form>
           </div><!-- /.item -->
@@ -44,11 +44,11 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <?php foreach ($categories as $category) { ?>
-                    <td><a href="<?php echo base_url('category/view/'.$category->idcategory)?>"><?php echo $category->category_name; ?></a></td>
+                    <?php foreach ($tags as $tag) { ?>
+                    <td><a href="#"><?php echo $tag->tag; ?></a></td>
                     <td>
-                      <a class="btn btn-info btn-sm" href="<?php echo base_url(); ?>category/edit/<?php echo $category->idcategory; ?>">Edit</a> ||
-                      <a onclick="return confirm('Apakah anda yakin ?');" class="btn btn-danger btn-sm" href="<?php echo base_url(); ?>category/delete/<?php echo $category->idcategory; ?>">Hapus</a>
+                      <a class="btn btn-info btn-sm" href="<?php echo base_url(); ?>tag/edit/<?php echo $tag->idtag; ?>">Edit</a> ||
+                      <a onclick="return confirm('Apakah anda yakin ?');" class="btn btn-danger btn-sm" href="<?php echo base_url(); ?>tag/delete/<?php echo $tag->idtag; ?>">Hapus</a>
                     </td>
                     </tr>
                 <?php } ?>

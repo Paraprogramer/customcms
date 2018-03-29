@@ -25,8 +25,8 @@ class Category extends CI_Controller {
 		$data = array(
 			'title' => 'Kategori',
 			'category_name' => $tampung[0]['category_name'],
-			'posts' => $this->posts->postscategories($id),
-			'counts' => $this->posts->countposts($id),
+			'posts' => $this->posts->postscategories($id)->result(),
+			'counts' => $this->posts->postscategories($id)->num_rows(),
 			'file' => 'categories/category'
 		);
 		$this->load->view('table_template',$data);

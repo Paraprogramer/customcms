@@ -1,10 +1,9 @@
 <section class="content">
-  <span id="pesan-flash"><?php echo $this->session->flashdata('sukses'); ?></span>
   <div class="row">
     <div class="col-md-12">
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><?php echo $title ?>  &nbsp;&nbsp;<a href="<?php echo base_url('post-new') ?>" class="btn btn-default">Tambah Post</a></h3>
+              <h3 class="box-title">Kategori <?php echo $category_name ?></h3> &nbsp;<span class="label label-primary"><?php echo $counts ?> Pos</span>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -15,7 +14,6 @@
                   <th>Isi</th>
                   <th>Penulis</th>
                   <th width="10%">Tanggal</th>
-                  <th width="12%"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,17 +28,13 @@
                         <?php
                         if ($post->post_status == '1') {
                           echo "<span class='label label-primary'><i>Telah Terbit</i></span>";
-                        }else if($post->post_status == '2'){
+                        }else{
                           echo "<span class='label label-default'><i>Terakhir Diubah</i></span>";
-                        }else { echo " "; }
+                        }
                         echo "<br>";
                         echo date("d/m/Y",strtotime($post->date_published)) ?>
                           
                         </td>
-                      <td>
-                        <a href="<?php echo base_url('post/view/'.$post->idpost) ?>" class="btn btn-default btn-md" title="lihat"><i class="fa fa-eye"></i></a> || 
-                        <a href="<?php echo base_url('post/edit/'.$post->idpost) ?>" class="btn btn-default btn-md" title="edit"><i class="fa fa-edit"></i></a>
-                      </td>
                     </tr>
                   <?php } ?>
                 <tfoot>
@@ -49,7 +43,6 @@
                     <th>Isi</th>
                     <th>Penulis</th>
                     <th width="10%">Tanggal</th>
-                    <th width="12%"></th>
                   </tr>
                 </tfoot>
               </table>

@@ -26,6 +26,7 @@
           <li><a href="<?php echo base_url('posts-all') ?>"><i class="fa fa-circle-o"></i>Semua Pos</a></li>
           <li><a href="<?php echo base_url('post-new') ?>"><i class="fa fa-circle-o"></i>Tambah Pos</a></li>
           <li><a href="<?php echo base_url('category') ?>"><i class="fa fa-circle-o"></i>Kategori</a></li>
+          <li><a href="<?php echo base_url('tag') ?>"><i class="fa fa-circle-o"></i>Tag</a></li>
         </ul>
       </li>
       <li class="treeview active">

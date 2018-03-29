@@ -33,6 +33,7 @@ class Post extends CI_Controller {
 		$data['title']="Tambah Pos";
 		$data['file']="posts/addpost";
 		$data['categories'] = $this->posts->getallcategories('categories');
+		$data['tags'] = $this->posts->getalltags('tags');
 		$this->load->view('form_template',$data);
 	}
 
@@ -41,7 +42,7 @@ class Post extends CI_Controller {
 	{
 		$slug = url_title($this->input->post('title'));
 
-		$tags = explode(",",$this->input->post('tag'));
+		$tags = $this->input->post('tags');
 		$categories = $this->input->post('category');
 
 		$datetime = date('Y-m-d H:i:s');
@@ -49,107 +50,126 @@ class Post extends CI_Controller {
 		$idpost = uniqid();
 
 		$action = $this->input->get_post("actionbtn");
-		switch ($action) {
-			case 'terbit':
-				$data = array(
-					'idpost' => $idpost,
-					'title' => $this->input->post('title'),
-					'content' => $this->input->post('content'),
-					'featured_image' => 'image.jpg',
-					'date_published' => $datetime,
-					'slug' => $slug,
-					'post_status' => '1',
-					'iduser' => 3
-				);
-				$this->posts->savepost('posts',$data);
+		$status ='';
 
-				foreach ($tags as $tag) {
-					$idtag = uniqid();
-					$data = array(
-						'idtag' => $idtag,
-						'tag' => $tag
-					);
-					$this->posts->savepost('tags',$data);
-					
-					$data = array(
-						'idpost' => $idpost,
-						'idtag' => $idtag
-					);
-					$this->posts->savepost('posts_tags', $data);
-
-				}
-
-				foreach ($categories as $category) {
-					
-					$data = array(
-						'idpost' => $idpost,
-						'idcategory' => $category
-					);
-					$this->posts->savepost('categories_detail', $data);
-
-				}
-				
-				$this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Pos Telah Terbit</strong></div>");
-				redirect('posts-all');
-				
-				
-				break;
-
-			case 'konsep':
-				$data = array(
-					'idpost' => $idpost,
-					'title' => $this->input->post('title'),
-					'content' => $this->input->post('content'),
-					'featured_image' => 'image.jpg',
-					'date_published' => $datetime,
-					'slug' => $slug,
-					'post_status' => '2',
-					'iduser' => 3
-				);
-				$this->posts->savepost('posts',$data);
-
-				foreach ($tags as $tag) {
-					$idtag = uniqid();
-					$data = array(
-						'idtag' => $idtag,
-						'tag' => $tag
-					);
-					$this->posts->savepost('tags',$data);
-					
-					$data = array(
-						'idpost' => $idpost,
-						'idtag' => $idtag
-					);
-					$this->posts->savepost('posts_tags', $data);
-
-				}
-
-				foreach ($categories as $category) {
-					
-					$data = array(
-						'idpost' => $idpost,
-						'idcategory' => $category
-					);
-					$this->posts->savepost('categories_detail', $data);
-
-				}
-
-				$this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Post Disimpan Di Konsep</strong></div>");
-				redirect('posts-all');
-			break;
-			default:
+		if ($action == 'terbit') {
+			$status = '1';
+			$sess = $this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Pos Telah Terbit</strong></div>");
+		}else if($action == 'konsep'){
+			$status = '2';
+			$sess = $this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Post Disimpan Di Konsep</strong></div>");
 		}
+
+		$data = array(
+			'idpost' => $idpost,
+			'title' => $this->input->post('title'),
+			'content' => $this->input->post('content'),
+			'featured_image' => 'image.jpg',
+			'date_published' => $datetime,
+			'slug' => $slug,
+			'post_status' => $status,
+			'iduser' => 3
+		);
+		$this->posts->savepost('posts',$data);
+
+		foreach ($tags as $tag) {
+			$data = array(
+				'idpost' => $idpost,
+				'idtag' => $tag
+			);
+			$this->posts->savepost('posts_tags', $data);
+
+		}
+
+		foreach ($categories as $category) {
+			
+			$data = array(
+				'idpost' => $idpost,
+				'idcategory' => $category
+			);
+			$this->posts->savepost('categories_detail', $data);
+
+		}
+		
+		$sess;
+		redirect('posts-all');
+
 
 	}
 
-	// public function gettags()
-	// {
-	// 	$this->db->select('tag');
-	// 	$query = $this->db->get('tags')->result_array();
-		
-	// 	print_r($query);
-	// }
+	public function edit($id='')
+	{
 
+		$data['post'] = $this->posts->getpostbyid('posts',$id);
+		$data['c'] = $this->posts->categories_post($id);
+		$data['t'] = $this->posts->tags_post($id);
+
+		$data['media'] = $this->datamedia->list_image();
+		$data['title']="Edit Pos";
+		$data['file']="posts/editpost";
+		$data['categories'] = $this->posts->getallcategories('categories');
+		$data['tags'] = $this->posts->getalltags('tags');
+		$this->load->view('form_template',$data);
+	}
+
+	public function update()
+	{
+		$id = $this->input->post('id');
+
+		$slug = url_title($this->input->post('title'));
+
+		$tags = $this->input->post('tags');
+		$categories = $this->input->post('category');
+
+		$datetime = date('Y-m-d H:i:s');
+
+		$action = $this->input->get_post("actionbtn");
+		$status ='';
+
+		if ($action == 'terbit') {
+			$status = '1';
+			$sess = $this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Pos Telah Terbit</strong></div>");
+		}else if($action == 'konsep'){
+			$status = '2';
+			$sess = $this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Post Disimpan Di Konsep</strong></div>");
+		}
+
+		$data = array(
+			'title' => $this->input->post('title'),
+			'content' => $this->input->post('content'),
+			'featured_image' => 'image.jpg',
+			'date_published' => $datetime,
+			'slug' => $slug,
+			'post_status' => $status,
+			'iduser' => 3
+		);
+		$this->posts->updatepost('posts',$data,$id);
+
+
+		foreach ($categories as $category) {
+			
+			$data = array(
+				'idcategory' => $category
+			);
+			$this->posts->updatepost('categories_detail', $data,$id);
+
+		}
+		
+		foreach ($tags as $tag) {
+			
+			$data = array(
+				'idtag' => $tag
+			);
+			$this->posts->updatepost('posts_tags', $data,$id);
+
+		}
+		$sess;
+		redirect('posts-all');
+
+		
+
+
+	}
 	public function delete($id= '')
 	{
 		$this->posts->deletepost('posts_tags',$id);
@@ -161,6 +181,3 @@ class Post extends CI_Controller {
 	}
 
 }
-
-/* End of file Post.php */
-/* Location: ./application/controllers/Post.php */
