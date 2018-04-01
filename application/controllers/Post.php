@@ -145,22 +145,26 @@ class Post extends CI_Controller {
 		);
 		$this->posts->updatepost('posts',$data,$id);
 
+		$this->posts->deletepost('posts_tags',$id);
+		$this->posts->deletepost('categories_detail',$id);
+
+
+		foreach ($tags as $tag) {
+			$data = array(
+				'idpost' => $id,
+				'idtag' => $tag
+			);
+			$this->posts->savepost('posts_tags', $data);
+
+		}
 
 		foreach ($categories as $category) {
 			
 			$data = array(
+				'idpost' => $id,
 				'idcategory' => $category
 			);
-			$this->posts->updatepost('categories_detail', $data,$id);
-
-		}
-		
-		foreach ($tags as $tag) {
-			
-			$data = array(
-				'idtag' => $tag
-			);
-			$this->posts->updatepost('posts_tags', $data,$id);
+			$this->posts->savepost('categories_detail', $data);
 
 		}
 		$sess;
