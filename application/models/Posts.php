@@ -3,7 +3,6 @@
 class Posts extends CI_Model {
 
 
-	// posts model
 
 	public function getposts()
 	{
@@ -133,4 +132,8 @@ class Posts extends CI_Model {
 		return $this->db->delete($table);
 	}
 	
+	public function mediajson()
+	{
+		return $this->db->get('media')->result_array();
+	}
 }

@@ -44,7 +44,7 @@ class Media extends CI_Controller {
 			'idmedia' => $this->input->post('idmedia'),
 			'media_name' => $filename,
 			'media_caption' => $this->input->post('media_caption'),
-			'media_url' => base_url().'uploads/'.$filename
+			'url' => base_url().'uploads/'.$filename
 		);
 		
 		$this->datamedia->insert_media($data);

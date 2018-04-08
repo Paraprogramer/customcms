@@ -22,6 +22,19 @@ folder instead of downloading all of them to reduce the load. -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
+<!-- froala -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+ 
+<!-- Include Editor style. -->
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_style.min.css" rel="stylesheet" type="text/css" /> -->
+
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/froala/css/froala_editor.pkgd.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+
+
 <!-- jQuery 3 -->
 <script src="<?php echo base_url() ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -34,11 +47,15 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="<?php echo base_url() ?>assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
-<!-- CK Editor -->
-<script src="<?php echo base_url() ?>assets/bower_components/ckeditor/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="<?php echo base_url() ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js">
-</script>
+
+<!-- froala js-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.pkgd.min.js"></script> -->
+
+<script type="text/javascript" src="<?php echo base_url()?>assets/plugins/froala/js/froala_editor.pkgd.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <style type="text/css">
 	body{
@@ -49,16 +66,47 @@ folder instead of downloading all of them to reduce the load. -->
 	    width: 90%;
 	    height: 90%; /* control height here */
 	}
+
+	div#editor1{
+		height: 50%;
+	}
+
+	div.fr-modal-body div.fr-image-list div.fr-image-container .fr-delete-img {
+	  display: none !important;
+	}
+
+	div.fr-modal-body div.fr-image-list div.fr-image-container .fr-insert-img {
+	  -webkit-transform: translateY(-50%) translateX(-50%) !important;
+	  -moz-transform: translateY(-50%) translateX(-50%) !important;
+	  -ms-transform: translateY(-50%) translateX(-50%) !important;
+	  -o-transform: translateY(-50%) translateX(-50%) !important;
+	}
 </style>
 
 <script>
 $(function () {
-	// Replace the <textarea id="editor1"> with a CKEditor
-	// instance, using default configuration.
-	CKEDITOR.replace('editor1')
-	//bootstrap WYSIHTML5 - text editor
-	$('.textarea').wysihtml5();
 
+	$('#editor1').froalaEditor({
+		heightMin: '250px',
+
+		imageManagerPreloader: null,
+ 
+        // Set page size.
+        imageManagerPageSize: 20,
+ 
+        // Set a scroll offset (value in pixels).
+        imageManagerScrollOffset: 12,
+ 
+        // Set the load images request URL.
+        imageManagerLoadURL: "<?php echo base_url() ?>post/mediajson",
+ 
+        // Set the load images request type.
+        imageManagerLoadMethod: "GET"
+ 
+	});
+
+	// select2
+	$('.select2').select2();
 	
 
 })
@@ -78,6 +126,7 @@ $(function () {
 </script>
 <!-- iCheck -->
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/iCheck/square/blue.css">
+ 
 
 
 

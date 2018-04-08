@@ -12,8 +12,8 @@
                 <thead>
                 <tr>
                   <th>Judul</th>
-                  <th>Isi</th>
                   <th>Penulis</th>
+                  <th>Slug</th>
                   <th width="10%">Tanggal</th>
                   <th width="12%"></th>
                 </tr>
@@ -24,8 +24,8 @@
                   
                     <tr>
                       <td><?php echo $post->title; ?></td>
-                      <td><?php echo character_limiter($post->content, 30) ?></td>
                       <td><?php echo $post->name ?></td>
+                      <td><?php echo $post->slug ?></td>
                       <td>
                         <?php
                         if ($post->post_status == '1') {
@@ -46,8 +46,8 @@
                 <tfoot>
                   <tr>
                     <th>Judul</th>
-                    <th>Isi</th>
                     <th>Penulis</th>
+                    <th>Slug</th>
                     <th width="10%">Tanggal</th>
                     <th width="12%"></th>
                   </tr>

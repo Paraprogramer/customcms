@@ -22,14 +22,12 @@ class Post extends CI_Controller {
 		$data['post'] = $this->posts->getpostbyid('posts',$id);
 		$data['categories'] = $this->posts->categories_post($id);
 		$data['tags'] = $this->posts->tags_post($id);
-		// print_r($data); die();
 		$data['file']="posts/show";
 		$this->load->view('form_template',$data);
 	}
 
 	public function add()
 	{
-		$data['media'] = $this->datamedia->list_image();
 		$data['title']="Tambah Pos";
 		$data['file']="posts/addpost";
 		$data['categories'] = $this->posts->getallcategories('categories');
@@ -182,6 +180,14 @@ class Post extends CI_Controller {
 
 		$this->session->set_flashdata("sukses", "<div class='alert alert-success'><strong>Post Berhasil Dihapus</strong></div>");
 		redirect('posts-all');
+	}
+
+	// get media JSON
+
+	public function mediajson()
+	{
+		$data = $this->posts->mediajson();
+		echo json_encode($data);
 	}
 
 }
