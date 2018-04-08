@@ -24,10 +24,7 @@
             <div class="form-group">
             Permalink : <a href="<?php echo base_url('')?>"><u>http://localhost/customcms/<?php echo date('Y').'/'.date('m').'/'.date('d').'/contoh' ?></a></u> &nbsp;&nbsp;<button type="button" id="edit-slug" class="btn btn-default btn-sm">Edit</button>
             </div>
-            <br>
-            <div class="form-group">
-              <button type="button" id="media" data-toggle="modal" data-target="#modal-media" class="btn btn-default"><i class="fa fa-camera"> Tambahkan Media</i></button>
-            </div>
+            
             <div class="form-group">
               <textarea id="editor1" name="content"><?php echo $post['content'] ?>
               </textarea> 
