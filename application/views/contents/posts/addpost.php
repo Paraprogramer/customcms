@@ -21,12 +21,10 @@
               <input type="text" name="title" id="" class="form-control" placeholder="Masukkan Judul">
             </div>
             <div class="form-group">
-            Permalink : <a href="<?php echo base_url('')?>"><u>http://localhost/customcms/<?php echo date('Y').'/'.date('m').'/'.date('d').'/contoh' ?></a></u> &nbsp;&nbsp;<button type="button" id="edit-slug" class="btn btn-default btn-sm">Edit</button>
+            Permalink : <a href="<?php echo base_url('')?>"><u>http://customcms/<?php echo date('Y').'/'.date('m').'/'.date('d').'/contoh' ?></a></u> &nbsp;&nbsp;<button type="button" id="edit-slug" class="btn btn-default btn-sm">Edit</button>
             </div>
             <br>
-            <!-- <div class="form-group">
-              <button type="button" id="media" data-toggle="modal" data-target="#modal-media" class="btn btn-default"><i class="fa fa-camera"> Tambahkan Media</i></button>
-            </div> -->
+
             <div class="form-group">
               <textarea id="editor1" name="content">
               </textarea> 
@@ -71,10 +69,6 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <!-- <div class="form-group">
-              
-            <input type="checkbox" name="category[]" value=""> Tak Berkategori
-            </div> -->
             <?php
             foreach ($categories as $data) { ?>
               <div class="form-group">
